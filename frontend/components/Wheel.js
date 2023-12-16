@@ -1,35 +1,91 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
-// import wheel from "../state/reducer";
-import initialWheelState from "../state/reducer";
+import { moveClockwise, moveCounterClockwise } from "../state/action-creators";
 
-export function Wheel(props) {
-  // const [active, setActive] = useState(initialWheelState);
+// const handleClickClockwise = () => {
+//   moveClockwise();
+// };
 
-  // function activeButton(value) {
-  //   setActive(value);
+// const handleClickCounterClockwise = () => {
+//   moveCounterClockwise();
+// };
+
+export function Wheel({ wheel }) {
+  // function isNumber(value) {
+  //   return typeof value === "number";
+  // }
+  // console.log(isNumber(wheel));
+
+  console.log("Wheel Function", wheel);
+  const handleClickClockwise = () => {
+    console.log("clockwise button working");
+    moveClockwise();
+  };
+
+  const handleClickCounterClockwise = () => {
+    console.log("counterClockwise button working");
+    moveCounterClockwise();
+  };
 
   return (
     <div id="wrapper">
       <div id="wheel">
-        <div className="cog active" style={{ "--i": 0 }}>
-          B
+        <div
+          className={`cog${wheel === 0 ? " active" : ""}`}
+          style={{ "--i": 0 }}
+        >
+          {wheel === 0 ? "B" : null}
         </div>
-        <div className="cog" style={{ "--i": 1 }}></div>
-        <div className="cog" style={{ "--i": 2 }}></div>
-        <div className="cog" style={{ "--i": 3 }}></div>
-        <div className="cog" style={{ "--i": 4 }}></div>
-        <div className="cog" style={{ "--i": 5 }}></div>
+        <div
+          className={`cog${wheel === 1 ? " active" : ""}`}
+          style={{ "--i": 1 }}
+        >
+          {wheel === 1 ? "B" : null}
+        </div>
+        <div
+          className={`cog${wheel === 2 ? " active" : ""}`}
+          style={{ "--i": 2 }}
+        >
+          {wheel === 2 ? "B" : null}
+        </div>
+        <div
+          className={`cog${wheel === 3 ? " active" : ""}`}
+          style={{ "--i": 3 }}
+        >
+          {wheel === 3 ? "B" : null}
+        </div>
+        <div
+          className={`cog${wheel === 4 ? " active" : ""}`}
+          style={{ "--i": 4 }}
+        >
+          {wheel === 4 ? "B" : null}
+        </div>
+        <div
+          className={`cog${wheel === 5 ? " active" : ""}`}
+          style={{ "--i": 5 }}
+        >
+          {wheel === 5 ? "B" : null}
+        </div>
         {/* --i is a custom CSS property, no need to touch that nor the style object */}
       </div>
       <div id="keypad">
-        <button id="counterClockwiseBtn">Counter clockwise</button>
-        <button id="clockwiseBtn">Clockwise</button>
+        <button id="counterClockwiseBtn" onClick={handleClickCounterClockwise}>
+          Counter clockwise
+        </button>
+        <button id="clockwiseBtn" onClick={handleClickClockwise}>
+          Clockwise
+        </button>
       </div>
     </div>
   );
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => {
+  console.log("mapStateToProps", state);
+  return {
+    // state: state.wheel,
+    wheel: state.wheel,
+  };
+};
 
 export default connect(mapStateToProps, {})(Wheel);
