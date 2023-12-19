@@ -4,6 +4,7 @@ import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE } from "./action-types";
 
 export const initialWheelState = 0;
 function wheel(state = initialWheelState, action) {
+  console.log("reducer", action);
   // return state;
   switch (action.type) {
     case MOVE_CLOCKWISE:

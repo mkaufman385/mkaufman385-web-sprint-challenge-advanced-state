@@ -2,31 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { moveClockwise, moveCounterClockwise } from "../state/action-creators";
 
-// const handleClickClockwise = () => {
-//   moveClockwise();
-// };
-
-// const handleClickCounterClockwise = () => {
-//   moveCounterClockwise();
-// };
-
-export function Wheel({ wheel }) {
-  // function isNumber(value) {
-  //   return typeof value === "number";
-  // }
-  // console.log(isNumber(wheel));
-
+export function Wheel({ wheel, moveClockwise, moveCounterClockwise }) {
   console.log("Wheel Function", wheel);
-  const handleClickClockwise = () => {
-    console.log("clockwise button working");
-    moveClockwise();
-  };
-
-  const handleClickCounterClockwise = () => {
-    console.log("counterClockwise button working");
-    moveCounterClockwise();
-  };
-
   return (
     <div id="wrapper">
       <div id="wheel">
@@ -69,10 +46,10 @@ export function Wheel({ wheel }) {
         {/* --i is a custom CSS property, no need to touch that nor the style object */}
       </div>
       <div id="keypad">
-        <button id="counterClockwiseBtn" onClick={handleClickCounterClockwise}>
+        <button id="counterClockwiseBtn" onClick={() => moveCounterClockwise}>
           Counter clockwise
         </button>
-        <button id="clockwiseBtn" onClick={handleClickClockwise}>
+        <button id="clockwiseBtn" onClick={() => moveClockwise}>
           Clockwise
         </button>
       </div>
@@ -83,9 +60,13 @@ export function Wheel({ wheel }) {
 const mapStateToProps = (state) => {
   console.log("mapStateToProps", state);
   return {
-    // state: state.wheel,
     wheel: state.wheel,
   };
 };
 
-export default connect(mapStateToProps, {})(Wheel);
+const mapDispatchToProps = {
+  moveClockwise,
+  moveCounterClockwise,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wheel);
