@@ -4,25 +4,17 @@ import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE } from "./action-types";
 
 export const initialWheelState = 0;
 function wheel(state = initialWheelState, action) {
-  console.log("reducer", action);
   // return state;
+  console.log("initial reducer state", state);
   switch (action.type) {
     case MOVE_CLOCKWISE:
-      if (state <= 5) {
-        return {
-          state: [state + 1],
-        };
-      }
+      // if (state <= 5 && state >= 0)
+
+      return state < 5 ? state + 1 : 0;
+
     case MOVE_COUNTERCLOCKWISE:
-      if (state === 0) {
-        return {
-          state: [state === 5],
-        };
-      } else {
-        return {
-          state: [state - 1],
-        };
-      }
+      return state > 0 ? state - 1 : 5;
+
     default:
       return state;
   }

@@ -3,11 +3,15 @@
 import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE } from "./action-types";
 
 export function moveClockwise() {
-  type: MOVE_CLOCKWISE;
+  return {
+    type: MOVE_CLOCKWISE,
+  };
 }
 
 export function moveCounterClockwise() {
-  type: MOVE_COUNTERCLOCKWISE;
+  return {
+    type: MOVE_COUNTERCLOCKWISE,
+  };
 }
 
 export function selectAnswer() {}
