@@ -1,11 +1,15 @@
 import React from "react";
+import { connect } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
+// import { useEffect } from "react";
+import { setQuiz, selectAnswer, setMessage } from "../state/action-creators";
 
-export default function Quiz(props) {
+export function Quiz(quiz, setQuiz, selectAnswer) {
   return (
     <div id="wrapper">
       {
         // quiz already in state? Let's use that, otherwise render "Loading next quiz..."
-        true ? (
+        quiz ? (
           <>
             <h2>What is a closure?</h2>
 
@@ -30,3 +34,22 @@ export default function Quiz(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  console.log("mapStateToProps", state);
+  return {
+    quiz: state.quiz,
+    selectedAnswer: state.selectedAnswer,
+    infoMessage: state.infoMessage,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setQuiz: () => dispatch(setQuiz()),
+    selectAnswer: () => dispatch(selectAnswer()),
+    setMessage: () => dispatch(setMessage()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Quiz);

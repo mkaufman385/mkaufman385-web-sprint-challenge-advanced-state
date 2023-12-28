@@ -3,25 +3,15 @@ import { connect } from "react-redux";
 import { moveClockwise, moveCounterClockwise } from "../state/action-creators";
 
 export function Wheel({ wheel, moveClockwise, moveCounterClockwise }) {
-  const value = wheel;
+  // const value = wheel;
 
-  if (typeof value === "number") {
-    console.log("The value is a number in Wheel.");
-  } else {
-    console.log("The value is not a number in Wheel.");
-  }
+  // if (typeof value === "number") {
+  //   console.log("The value is a number in Wheel.");
+  // } else {
+  //   console.log("The value is not a number in Wheel.");
+  // }
 
-  console.log("Wheel Function", wheel);
-
-  // const handleMoveClockwiseClick = () => {
-  //   console.log("Clockwise Click working");
-  //   moveClockwise();
-  // };
-
-  // const handleMoveCounterClockwiseClick = () => {
-  //   console.log("CounterClockwise Click working");
-  //   moveCounterClockwise();
-  // };
+  // console.log("Wheel Function", wheel);
 
   return (
     <div id="wrapper">
@@ -77,15 +67,15 @@ export function Wheel({ wheel, moveClockwise, moveCounterClockwise }) {
 }
 
 const mapStateToProps = (state) => {
-  console.log("mapStateToProps", state);
+  // console.log("mapStateToProps", state);
 
-  const wheelvalue = state;
+  // const wheelvalue = state;
 
-  if (typeof wheelvalue === "number") {
-    console.log("The value is a number in mapStateToProps.");
-  } else {
-    console.log("The value is not a number in mapStateToProps.");
-  }
+  // if (typeof wheelvalue === "number") {
+  //   console.log("The value is a number in mapStateToProps.");
+  // } else {
+  //   console.log("The value is not a number in mapStateToProps.");
+  // }
 
   return {
     wheel: state.wheel,
