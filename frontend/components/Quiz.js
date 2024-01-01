@@ -13,6 +13,7 @@ export function Quiz({ quiz, setQuiz, selectAnswer, setMessage }) {
     setSelectedButton(button);
 
     selectAnswer(button);
+    // console.log("Payload", payload);
   };
 
   return (
@@ -28,14 +29,18 @@ export function Quiz({ quiz, setQuiz, selectAnswer, setMessage }) {
                 className={`answer ${selectedButton === "A" ? "selected" : ""}`}
               >
                 A function
-                <button onClick={() => handleAnswerClick("A")}>SELECTED</button>
+                <button onClick={() => handleAnswerClick("A")}>
+                  {selectedButton === "A" ? "SELECTED" : "Select"}
+                </button>
               </div>
 
               <div
                 className={`answer ${selectedButton === "B" ? "selected" : ""}`}
               >
                 An elephant
-                <button onClick={() => handleAnswerClick("B")}>Select</button>
+                <button onClick={() => handleAnswerClick("B")}>
+                  {selectedButton === "B" ? "SELECTED" : "Select"}
+                </button>
               </div>
             </div>
 
