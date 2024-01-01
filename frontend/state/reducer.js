@@ -28,9 +28,7 @@ function quiz(state = initialQuizState, action) {
   // return state;
   switch (action.type) {
     case SET_QUIZ_INTO_STATE:
-      return {
-        ...state,
-      };
+      return action.payload;
     default:
       return state;
   }
@@ -45,6 +43,13 @@ function selectedAnswer(state = initialSelectedAnswerState, action) {
         ...state,
         state: action.payload,
       };
+    // const newState = { ...state, state: action.payload };
+
+    // if (newState !== state) {
+    //   return newState;
+    // }
+    // break;
+
     default:
       return state;
   }

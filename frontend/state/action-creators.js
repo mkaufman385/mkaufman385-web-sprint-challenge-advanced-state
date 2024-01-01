@@ -34,10 +34,10 @@ export function setMessage() {
   };
 }
 
-export function setQuiz() {
+export function setQuiz(quizData) {
   return {
     type: SET_QUIZ_INTO_STATE,
-    // payload: quizData,
+    payload: quizData,
   };
 }
 
