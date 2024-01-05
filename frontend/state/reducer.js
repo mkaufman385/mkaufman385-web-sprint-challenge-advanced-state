@@ -23,7 +23,7 @@ function wheel(state = initialWheelState, action) {
   }
 }
 
-const initialQuizState = null;
+export const initialQuizState = null;
 function quiz(state = initialQuizState, action) {
   // return state;
   switch (action.type) {
@@ -34,21 +34,17 @@ function quiz(state = initialQuizState, action) {
   }
 }
 
-const initialSelectedAnswerState = null;
+export const initialSelectedAnswerState = null;
 function selectedAnswer(state = initialSelectedAnswerState, action) {
+  console.log("initial reducer state", state);
   // return state;
+
   switch (action.type) {
     case SET_SELECTED_ANSWER:
       return {
         ...state,
         state: action.payload,
       };
-    // const newState = { ...state, state: action.payload };
-
-    // if (newState !== state) {
-    //   return newState;
-    // }
-    // break;
 
     default:
       return state;
@@ -62,6 +58,7 @@ function infoMessage(state = initialMessageState, action) {
     case SET_INFO_MESSAGE:
       return {
         ...state,
+        state: action.payload,
       };
     default:
       return state;

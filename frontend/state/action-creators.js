@@ -1,5 +1,7 @@
 // ❗ You don't need to add extra action creators to achieve MVP
 
+import axios from "axios";
+
 import {
   MOVE_CLOCKWISE,
   MOVE_COUNTERCLOCKWISE,
@@ -27,10 +29,10 @@ export function selectAnswer(selectedButton) {
   };
 }
 
-export function setMessage() {
+export function setMessage(message) {
   return {
     type: SET_INFO_MESSAGE,
-    // payload:
+    payload: message,
   };
 }
 
@@ -48,6 +50,19 @@ export function resetForm() {}
 // ❗ Async action creators
 export function fetchQuiz() {
   return function (dispatch) {
+    dispatch(setQuiz(null));
+    dispatch(setMessage("Loading next quiz..."));
+
+    axios
+      .get("http://localhost:9000/api/quiz/next")
+      .then((response) => {
+        const quizData = response.data;
+        dispatch(setQuiz(quizData));
+        dispatch(setMessage(null));
+      })
+      .catch((error) => {
+        console.error("Failed to fetch quiz:", error);
+      });
     // First, dispatch an action to reset the quiz state (so the "Loading next quiz..." message can display)
     // On successful GET:
     // - Dispatch an action to send the obtained quiz to its state

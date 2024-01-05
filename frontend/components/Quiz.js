@@ -1,50 +1,77 @@
 import React from "react";
 import { connect } from "react-redux";
-import { useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useEffect } from "react";
-import { setQuiz, selectAnswer, setMessage } from "../state/action-creators";
+import { useEffect } from "react";
 
-export function Quiz({ quiz, setQuiz, selectAnswer, setMessage }) {
-  const [selectedButton, setSelectedButton] = useState(null);
+import {
+  setQuiz,
+  selectAnswer,
+  setMessage,
+  fetchQuiz,
+} from "../state/action-creators";
+
+export function Quiz({
+  quiz,
+  setQuiz,
+  selectAnswer,
+  selectedAnswer,
+  setMessage,
+  fetchQuiz,
+}) {
+  console.log("quiz", quiz);
+  console.log("selectedAnswer", selectedAnswer);
+
+  const isSelectionMade = selectedAnswer !== null;
+
+  useEffect(() => {
+    console.log("FETCHQUIZ: ", fetchQuiz);
+    fetchQuiz();
+  }, [fetchQuiz]);
 
   const handleAnswerClick = (button) => {
     console.log("button working");
-    setSelectedButton(button);
 
     selectAnswer(button);
-    // console.log("Payload", payload);
+  };
+
+  const handleQuizSubmit = () => {
+    fetchQuiz();
   };
 
   return (
     <div id="wrapper">
       {
         // quiz already in state? Let's use that, otherwise render "Loading next quiz..."
-        { quiz } ? (
+        quiz ? (
           <>
             <h2>What is a closure?</h2>
 
             <div id="quizAnswers">
               <div
-                className={`answer ${selectedButton === "A" ? "selected" : ""}`}
+                className={`answer ${selectedAnswer === "0" ? "selected" : ""}`}
               >
                 A function
-                <button onClick={() => handleAnswerClick("A")}>
-                  {selectedButton === "A" ? "SELECTED" : "Select"}
+                <button onClick={() => handleAnswerClick("0")}>
+                  {selectedAnswer === "0" ? "SELECTED" : "Select"}
                 </button>
               </div>
 
               <div
-                className={`answer ${selectedButton === "B" ? "selected" : ""}`}
+                className={`answer ${selectedAnswer === "1" ? "selected" : ""}`}
               >
                 An elephant
-                <button onClick={() => handleAnswerClick("B")}>
-                  {selectedButton === "B" ? "SELECTED" : "Select"}
+                <button onClick={() => handleAnswerClick("1")}>
+                  {selectedAnswer === "1" ? "SELECTED" : "Select"}
                 </button>
               </div>
             </div>
 
-            <button id="submitAnswerBtn">Submit answer</button>
+            <button
+              id="submitAnswerBtn"
+              onClick={handleQuizSubmit}
+              disabled={!isSelectionMade}
+            >
+              Submit answer
+            </button>
           </>
         ) : (
           "Loading next quiz..."
@@ -67,7 +94,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setQuiz: () => dispatch(setQuiz()),
     selectAnswer: (selectedButton) => dispatch(selectAnswer(selectedButton)),
-    setMessage: () => dispatch(setMessage()),
+    setMessage: (message) => dispatch(setMessage(message)),
+    fetchQuiz: () => dispatch(fetchQuiz()),
   };
 };
 
