@@ -7,23 +7,24 @@ import {
   selectAnswer,
   setMessage,
   fetchQuiz,
+  postAnswer,
+  // selectedButton,
 } from "../state/action-creators";
 
 export function Quiz({
   quiz,
-  setQuiz,
+  // setQuiz,
   selectAnswer,
   selectedAnswer,
-  setMessage,
+  // setMessage,
   fetchQuiz,
+  postAnswer,
 }) {
-  console.log("quiz", quiz);
-  console.log("selectedAnswer", selectedAnswer);
-
-  const isSelectionMade = selectedAnswer !== null;
+  // console.log("quiz", quiz);
+  // console.log("selectedAnswer", selectedAnswer);
 
   useEffect(() => {
-    console.log("FETCHQUIZ: ", fetchQuiz);
+    // console.log("FETCHQUIZ: ", fetchQuiz);
     fetchQuiz();
   }, [fetchQuiz]);
 
@@ -34,6 +35,13 @@ export function Quiz({
   };
 
   const handleQuizSubmit = () => {
+    const answerPayload = {
+      quiz_id: "quiz_id",
+      answer_id: "answer_id",
+    };
+
+    selectAnswer(null);
+    postAnswer(answerPayload);
     fetchQuiz();
   };
 
@@ -68,7 +76,8 @@ export function Quiz({
             <button
               id="submitAnswerBtn"
               onClick={handleQuizSubmit}
-              disabled={!isSelectionMade}
+              // disabled={!isSelectionMade}
+              disabled={selectedAnswer === null}
             >
               Submit answer
             </button>
@@ -82,7 +91,7 @@ export function Quiz({
 }
 
 const mapStateToProps = (state) => {
-  console.log("mapStateToProps", state);
+  // console.log("mapStateToProps", state);
   return {
     quiz: state.quiz,
     selectedAnswer: state.selectedAnswer,
@@ -96,6 +105,7 @@ const mapDispatchToProps = (dispatch) => {
     selectAnswer: (selectedButton) => dispatch(selectAnswer(selectedButton)),
     setMessage: (message) => dispatch(setMessage(message)),
     fetchQuiz: () => dispatch(fetchQuiz()),
+    postAnswer: () => dispatch(postAnswer()),
   };
 };
 

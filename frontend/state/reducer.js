@@ -6,6 +6,8 @@ import {
   SET_QUIZ_INTO_STATE,
   SET_SELECTED_ANSWER,
   SET_INFO_MESSAGE,
+  INPUT_CHANGE,
+  RESET_FORM,
 } from "./action-types";
 
 export const initialWheelState = 0;
@@ -36,16 +38,12 @@ function quiz(state = initialQuizState, action) {
 
 export const initialSelectedAnswerState = null;
 function selectedAnswer(state = initialSelectedAnswerState, action) {
-  console.log("initial reducer state", state);
+  // console.log("initial reducer state", state);
   // return state;
 
   switch (action.type) {
     case SET_SELECTED_ANSWER:
-      return {
-        ...state,
-        state: action.payload,
-      };
-
+      return action.payload;
     default:
       return state;
   }
@@ -71,7 +69,18 @@ const initialFormState = {
   newFalseAnswer: "",
 };
 function form(state = initialFormState, action) {
-  return state;
+  // return state;
+  switch (action.type) {
+    case INPUT_CHANGE:
+      return {
+        ...state,
+        [action.payload.field]: action.payload.value,
+      };
+    case RESET_FORM:
+      return initialFormState;
+    default:
+      return state;
+  }
 }
 
 export default combineReducers({
