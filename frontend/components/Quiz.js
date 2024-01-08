@@ -36,9 +36,16 @@ export function Quiz({
 
   const handleQuizSubmit = () => {
     const answerPayload = {
-      quiz_id: "quiz_id",
-      answer_id: "answer_id",
+      // quiz_id: "LVqUh",
+      // answer_id: "0VEv0",
+      quiz_id: quiz.quiz_id,
+      answer_id: selectedAnswer,
     };
+
+    // const answerPayload = {
+    //   quiz_id: quizData,
+    //   answer_id: quizData,
+    // };
 
     selectAnswer(null);
     postAnswer(answerPayload);
@@ -51,7 +58,7 @@ export function Quiz({
         // quiz already in state? Let's use that, otherwise render "Loading next quiz..."
         quiz ? (
           <>
-            <h2>What is a closure?</h2>
+            <h2>{quiz.question}</h2>
 
             <div id="quizAnswers">
               <div
@@ -105,7 +112,7 @@ const mapDispatchToProps = (dispatch) => {
     selectAnswer: (selectedButton) => dispatch(selectAnswer(selectedButton)),
     setMessage: (message) => dispatch(setMessage(message)),
     fetchQuiz: () => dispatch(fetchQuiz()),
-    postAnswer: () => dispatch(postAnswer()),
+    postAnswer: (answerPayload) => dispatch(postAnswer(answerPayload)),
   };
 };
 

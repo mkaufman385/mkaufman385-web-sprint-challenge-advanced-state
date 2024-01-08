@@ -54,10 +54,8 @@ function infoMessage(state = initialMessageState, action) {
   // return state;
   switch (action.type) {
     case SET_INFO_MESSAGE:
-      return {
-        ...state,
-        state: action.payload,
-      };
+      return action.payload;
+
     default:
       return state;
   }

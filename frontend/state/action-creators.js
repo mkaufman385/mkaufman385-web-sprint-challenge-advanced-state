@@ -85,6 +85,8 @@ export function fetchQuiz() {
 }
 export function postAnswer(answerPayload) {
   return function (dispatch) {
+    console.log("Answer Payload 1:", answerPayload);
+
     dispatch(selectAnswer(null));
 
     const message = "Filler Message Here";
@@ -106,7 +108,7 @@ export function postAnswer(answerPayload) {
         if (error.response && error.response.status === 422) {
           console.error("Malformed client payload:", error.response.data);
         } else {
-          console.error("Failed to fetch quiz:", error);
+          console.error("Failed to post Answer:", error);
         }
       });
 

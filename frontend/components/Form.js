@@ -10,7 +10,16 @@ export function Form({ form, inputChange, resetForm, postQuiz }) {
 
   const onSubmit = (evt) => {
     evt.preventDefault();
-    postQuiz();
+
+    const quizPayload = {
+      question: form.newQuestion,
+      trueAnswer: form.newTrueAnswer,
+      falseAnswer: form.newFalseAnswer,
+    };
+
+    postQuiz(quizPayload);
+
+    resetForm();
   };
 
   return (
