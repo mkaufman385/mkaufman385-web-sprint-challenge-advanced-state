@@ -16,40 +16,29 @@ export function Quiz({
   // setQuiz,
   selectAnswer,
   selectedAnswer,
-  // setMessage,
+  setMessage,
   fetchQuiz,
   postAnswer,
 }) {
-  // console.log("quiz", quiz);
-  // console.log("selectedAnswer", selectedAnswer);
-
   useEffect(() => {
-    // console.log("FETCHQUIZ: ", fetchQuiz);
     fetchQuiz();
   }, [fetchQuiz]);
 
   const handleAnswerClick = (button) => {
-    console.log("button working");
-
     selectAnswer(button);
   };
 
   const handleQuizSubmit = () => {
+    // console.log("SA", selectAnswer);
     const answerPayload = {
-      // quiz_id: "LVqUh",
-      // answer_id: "0VEv0",
       quiz_id: quiz.quiz_id,
       answer_id: selectedAnswer,
     };
 
-    // const answerPayload = {
-    //   quiz_id: quizData,
-    //   answer_id: quizData,
-    // };
-
     selectAnswer(null);
     postAnswer(answerPayload);
     fetchQuiz();
+    // setMessage(message);
   };
 
   return (
@@ -62,20 +51,32 @@ export function Quiz({
 
             <div id="quizAnswers">
               <div
-                className={`answer ${selectedAnswer === "0" ? "selected" : ""}`}
+                className={`answer ${
+                  selectedAnswer === quiz.answers[0] ? "selected" : ""
+                }`}
               >
                 A function
-                <button onClick={() => handleAnswerClick("0")}>
-                  {selectedAnswer === "0" ? "SELECTED" : "Select"}
+                <button
+                  onClick={() => handleAnswerClick(quiz.answers[0].answer_id)}
+                >
+                  {selectedAnswer === quiz.answers[0].answer_id
+                    ? "SELECTED"
+                    : "Select"}
                 </button>
               </div>
 
               <div
-                className={`answer ${selectedAnswer === "1" ? "selected" : ""}`}
+                className={`answer ${
+                  selectedAnswer === quiz.answers[1] ? "selected" : ""
+                }`}
               >
                 An elephant
-                <button onClick={() => handleAnswerClick("1")}>
-                  {selectedAnswer === "1" ? "SELECTED" : "Select"}
+                <button
+                  onClick={() => handleAnswerClick(quiz.answers[1].answer_id)}
+                >
+                  {selectedAnswer === quiz.answers[1].answer_id
+                    ? "SELECTED"
+                    : "Select"}
                 </button>
               </div>
             </div>

@@ -3,11 +3,14 @@ import { connect } from "react-redux";
 import { setMessage } from "../state/action-creators";
 
 export function Message({ infoMessage }) {
-  return <div id="message">{infoMessage}</div>;
+  const displayMessage = typeof infoMessage === "string" ? infoMessage : "";
+  return <div id="message">{displayMessage}</div>;
+  // return <div id="message">{infoMessage}</div>;
 }
 
 const mapStateToProps = (state) => ({
-  message: state.infoMessage,
+  // infoMessage: state.infoMessage.infoMessage,
+  infoMessage: state.infoMessage,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -15,5 +18,7 @@ const mapDispatchToProps = (dispatch) => {
     setMessage: (message) => dispatch(setMessage(message)),
   };
 };
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Message);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Message);

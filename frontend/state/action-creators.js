@@ -32,6 +32,7 @@ export function selectAnswer(selectedButton) {
 }
 
 export function setMessage(message) {
+  console.log("message: ", message);
   return {
     type: SET_INFO_MESSAGE,
     payload: message,
@@ -65,14 +66,14 @@ export function resetForm() {
 export function fetchQuiz() {
   return function (dispatch) {
     dispatch(setQuiz(null));
-    dispatch(setMessage("Loading next quiz..."));
+    dispatch(setMessage(null));
 
     axios
       .get("http://localhost:9000/api/quiz/next")
       .then((response) => {
         const quizData = response.data;
         dispatch(setQuiz(quizData));
-        dispatch(setMessage(null));
+        dispatch(setMessage(""));
       })
       .catch((error) => {
         console.error("Failed to fetch next quiz:", error);
@@ -85,24 +86,21 @@ export function fetchQuiz() {
 }
 export function postAnswer(answerPayload) {
   return function (dispatch) {
-    console.log("Answer Payload 1:", answerPayload);
+    // console.log("Answer Payload 1:", answerPayload);
 
     dispatch(selectAnswer(null));
 
-    const message = "Filler Message Here";
+    // const message = "Filler Message Here";
     dispatch(setMessage(message));
 
     axios
       .post("http://localhost:9000/api/quiz/answer", answerPayload)
       .then((response) => {
-        if (response.status === 201) {
-          const quizData = response.data;
-          dispatch(setQuiz(quizData));
-          dispatch(setMessage(null));
-          dispatch(fetchQuiz());
-        } else {
-          console.error("Unexpected status code:", response.status);
-        }
+        // console.log("RD", response.data.message);
+        const quizData = response.data;
+        dispatch(setQuiz(quizData));
+        dispatch(setMessage(response.data.message));
+        dispatch(fetchQuiz());
       })
       .catch((error) => {
         if (error.response && error.response.status === 422) {
@@ -123,13 +121,13 @@ export function postQuiz(quizPayload) {
     axios
       .post("http://localhost:9000/api/quiz/new", quizPayload)
       .then((response) => {
-        if (response.status === 201) {
-          const successMessage = "Quiz successfully posted!";
-          dispatch(setMessage(successMessage));
-          dispatch(resetForm()); // Reset the form after successful post
-        } else {
-          console.error("Unexpected status code:", response.status);
-        }
+        // if (response.status === 201) {
+        // const successMessage = "Quiz successfully posted!";
+        dispatch(setMessage(message));
+        dispatch(resetForm()); // Reset the form after successful post
+        // } else {
+        // console.error("Unexpected status code:", response.status);
+        // }
       })
       .catch((error) => {
         if (error.response && error.response.status === 422) {

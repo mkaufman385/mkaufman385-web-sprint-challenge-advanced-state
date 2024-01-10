@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import * as actionCreators from "../state/action-creators";
 
-export function Form({ form, inputChange, resetForm, postQuiz }) {
+export function Form({ form, inputChange, resetForm, postQuiz, setMessage }) {
   const onChange = (evt) => {
     const { id, value } = evt.target;
     inputChange(id, value);
@@ -12,13 +12,13 @@ export function Form({ form, inputChange, resetForm, postQuiz }) {
     evt.preventDefault();
 
     const quizPayload = {
-      question: form.newQuestion,
-      trueAnswer: form.newTrueAnswer,
-      falseAnswer: form.newFalseAnswer,
+      question_text: form.newQuestion,
+      true_answer_text: form.newTrueAnswer,
+      false_answer_text: form.newFalseAnswer,
     };
 
     postQuiz(quizPayload);
-
+    setMessage(`Congrats: "${form.newQuestion}" is a great question!`);
     resetForm();
   };
 
@@ -55,6 +55,16 @@ const mapStateToProps = (state) => ({
   form: state.form,
 });
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setMessage: (message) => dispatch(actionCreators.setMessage(message)),
+    inputChange: (field, value) =>
+      dispatch(actionCreators.inputChange(field, value)),
+    postQuiz: (quizPayload) => dispatch(actionCreators.postQuiz(quizPayload)),
+    resetForm: () => dispatch(actionCreators.resetForm()),
+  };
+};
+
 // export default connect((st) => st, actionCreators)(Form);
 
-export default connect(mapStateToProps, actionCreators)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
