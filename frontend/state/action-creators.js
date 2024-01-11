@@ -32,7 +32,7 @@ export function selectAnswer(selectedButton) {
 }
 
 export function setMessage(message) {
-  console.log("message: ", message);
+  // console.log("message: ", message);
   return {
     type: SET_INFO_MESSAGE,
     payload: message,
@@ -66,14 +66,14 @@ export function resetForm() {
 export function fetchQuiz() {
   return function (dispatch) {
     dispatch(setQuiz(null));
-    dispatch(setMessage(null));
+    // dispatch(setMessage(null));
 
     axios
       .get("http://localhost:9000/api/quiz/next")
       .then((response) => {
         const quizData = response.data;
         dispatch(setQuiz(quizData));
-        dispatch(setMessage(""));
+        // dispatch(setMessage(""));
       })
       .catch((error) => {
         console.error("Failed to fetch next quiz:", error);
@@ -86,12 +86,10 @@ export function fetchQuiz() {
 }
 export function postAnswer(answerPayload) {
   return function (dispatch) {
-    // console.log("Answer Payload 1:", answerPayload);
-
     dispatch(selectAnswer(null));
 
     // const message = "Filler Message Here";
-    dispatch(setMessage(message));
+    // dispatch(setMessage(message));
 
     axios
       .post("http://localhost:9000/api/quiz/answer", answerPayload)
@@ -100,6 +98,7 @@ export function postAnswer(answerPayload) {
         const quizData = response.data;
         dispatch(setQuiz(quizData));
         dispatch(setMessage(response.data.message));
+
         dispatch(fetchQuiz());
       })
       .catch((error) => {
@@ -123,8 +122,9 @@ export function postQuiz(quizPayload) {
       .then((response) => {
         // if (response.status === 201) {
         // const successMessage = "Quiz successfully posted!";
-        dispatch(setMessage(message));
-        dispatch(resetForm()); // Reset the form after successful post
+        dispatch(setMessage());
+        dispatch(resetForm());
+        // Reset the form after successful post
         // } else {
         // console.error("Unexpected status code:", response.status);
         // }
@@ -132,13 +132,15 @@ export function postQuiz(quizPayload) {
       .catch((error) => {
         if (error.response && error.response.status === 422) {
           console.error("Malformed client payload:", error.response.data);
-        } else {
-          console.error("Failed to post quiz:", error);
         }
+        // else {
+        //   console.error("Failed to post quiz:", error);
+        // }
       });
     // On successful POST:
     // - Dispatch the correct message to the the appropriate state
     // - Dispatch the resetting of the form
   };
 }
+// dispatch(resetForm());
 // ❗ On promise rejections, use log statements or breakpoints, and put an appropriate error message in state

@@ -5,7 +5,6 @@ import { setMessage } from "../state/action-creators";
 export function Message({ infoMessage }) {
   const displayMessage = typeof infoMessage === "string" ? infoMessage : "";
   return <div id="message">{displayMessage}</div>;
-  // return <div id="message">{infoMessage}</div>;
 }
 
 const mapStateToProps = (state) => ({

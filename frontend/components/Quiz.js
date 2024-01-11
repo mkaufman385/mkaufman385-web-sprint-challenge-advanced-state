@@ -20,16 +20,32 @@ export function Quiz({
   fetchQuiz,
   postAnswer,
 }) {
+  //
+
   useEffect(() => {
-    fetchQuiz();
-  }, [fetchQuiz]);
+    if (!quiz) {
+      fetchQuiz();
+    }
+
+    return () => {
+      if (
+        selectedAnswer !== null &&
+        selectedAnswer !== quiz?.answers[0]?.answer_id &&
+        selectedAnswer !== quiz?.answers[1]?.answer_id
+      ) {
+        selectAnswer(selectedAnswer);
+      }
+    };
+  }, [fetchQuiz, quiz, selectedAnswer, selectAnswer]);
 
   const handleAnswerClick = (button) => {
     selectAnswer(button);
+    setMessage(null);
   };
 
   const handleQuizSubmit = () => {
-    // console.log("SA", selectAnswer);
+    const isCorrect = selectedAnswer === quiz.answers[0].answer_id;
+
     const answerPayload = {
       quiz_id: quiz.quiz_id,
       answer_id: selectedAnswer,
@@ -38,7 +54,12 @@ export function Quiz({
     selectAnswer(null);
     postAnswer(answerPayload);
     fetchQuiz();
-    // setMessage(message);
+
+    if (isCorrect) {
+      setMessage("Nice job! That was the correct answer");
+    } else {
+      setMessage("What a shame! That was the incorrect answer");
+    }
   };
 
   return (

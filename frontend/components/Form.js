@@ -8,18 +8,38 @@ export function Form({ form, inputChange, resetForm, postQuiz, setMessage }) {
     inputChange(id, value);
   };
 
+  const isFormValid = () => {
+    return (
+      form.newQuestion.trim().length > 1 &&
+      form.newTrueAnswer.trim().length > 1 &&
+      form.newFalseAnswer.trim().length > 1
+    );
+  };
+
   const onSubmit = (evt) => {
     evt.preventDefault();
 
-    const quizPayload = {
-      question_text: form.newQuestion,
-      true_answer_text: form.newTrueAnswer,
-      false_answer_text: form.newFalseAnswer,
-    };
+    // if (form.newQuestion && form.newTrueAnswer && form.newFalseAnswer) {
+    //   const quizPayload = {
+    //     question_text: form.newQuestion,
+    //     true_answer_text: form.newTrueAnswer,
+    //     false_answer_text: form.newFalseAnswer,
+    //   };
 
-    postQuiz(quizPayload);
-    setMessage(`Congrats: "${form.newQuestion}" is a great question!`);
-    resetForm();
+    if (isFormValid()) {
+      const quizPayload = {
+        question_text: form.newQuestion,
+        true_answer_text: form.newTrueAnswer,
+        false_answer_text: form.newFalseAnswer,
+      };
+
+      postQuiz(quizPayload);
+      setMessage(`Congrats: "${form.newQuestion}" is a great question!`);
+      resetForm();
+    } else {
+      // Display an error message or handle the case where not all fields are filled
+      setMessage("");
+    }
   };
 
   return (
@@ -46,7 +66,9 @@ export function Form({ form, inputChange, resetForm, postQuiz, setMessage }) {
         placeholder="Enter false answer"
         value={form.newFalseAnswer}
       />
-      <button id="submitNewQuizBtn">Submit new quiz</button>
+      <button id="submitNewQuizBtn" disabled={!isFormValid()}>
+        Submit new quiz
+      </button>
     </form>
   );
 }
