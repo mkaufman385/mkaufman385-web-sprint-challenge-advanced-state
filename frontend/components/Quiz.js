@@ -13,15 +13,13 @@ import {
 
 export function Quiz({
   quiz,
-  // setQuiz,
+  setQuiz,
   selectAnswer,
   selectedAnswer,
   setMessage,
   fetchQuiz,
   postAnswer,
 }) {
-  //
-
   useEffect(() => {
     if (!quiz) {
       fetchQuiz();
@@ -73,10 +71,10 @@ export function Quiz({
             <div id="quizAnswers">
               <div
                 className={`answer ${
-                  selectedAnswer === quiz.answers[0] ? "selected" : ""
+                  selectedAnswer === quiz.answers[0].answer_id ? "selected" : ""
                 }`}
               >
-                A function
+                {quiz.answers[0].text}
                 <button
                   onClick={() => handleAnswerClick(quiz.answers[0].answer_id)}
                 >
@@ -88,10 +86,10 @@ export function Quiz({
 
               <div
                 className={`answer ${
-                  selectedAnswer === quiz.answers[1] ? "selected" : ""
+                  selectedAnswer === quiz.answers[1].answer_id ? "selected" : ""
                 }`}
               >
-                An elephant
+                {quiz.answers[1].text}
                 <button
                   onClick={() => handleAnswerClick(quiz.answers[1].answer_id)}
                 >

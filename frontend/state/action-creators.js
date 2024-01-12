@@ -120,14 +120,9 @@ export function postQuiz(quizPayload) {
     axios
       .post("http://localhost:9000/api/quiz/new", quizPayload)
       .then((response) => {
-        // if (response.status === 201) {
-        // const successMessage = "Quiz successfully posted!";
         dispatch(setMessage());
         dispatch(resetForm());
-        // Reset the form after successful post
-        // } else {
-        // console.error("Unexpected status code:", response.status);
-        // }
+        dispatch(setQuiz(response.data));
       })
       .catch((error) => {
         if (error.response && error.response.status === 422) {
