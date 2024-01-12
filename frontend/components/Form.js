@@ -19,13 +19,6 @@ export function Form({ form, inputChange, resetForm, postQuiz, setMessage }) {
   const onSubmit = (evt) => {
     evt.preventDefault();
 
-    // if (form.newQuestion && form.newTrueAnswer && form.newFalseAnswer) {
-    //   const quizPayload = {
-    //     question_text: form.newQuestion,
-    //     true_answer_text: form.newTrueAnswer,
-    //     false_answer_text: form.newFalseAnswer,
-    //   };
-
     if (isFormValid()) {
       const quizPayload = {
         question_text: form.newQuestion,
@@ -37,7 +30,6 @@ export function Form({ form, inputChange, resetForm, postQuiz, setMessage }) {
       setMessage(`Congrats: "${form.newQuestion}" is a great question!`);
       resetForm();
     } else {
-      // Display an error message or handle the case where not all fields are filled
       setMessage("");
     }
   };

@@ -120,6 +120,7 @@ export function postQuiz(quizPayload) {
     axios
       .post("http://localhost:9000/api/quiz/new", quizPayload)
       .then((response) => {
+        console.log("Success:", response);
         dispatch(setMessage());
         dispatch(resetForm());
         dispatch(setQuiz(response.data));
