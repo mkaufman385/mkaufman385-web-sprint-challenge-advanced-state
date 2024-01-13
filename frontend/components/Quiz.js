@@ -38,7 +38,7 @@ export function Quiz({
 
   const handleAnswerClick = (button) => {
     selectAnswer(button);
-    setMessage(null);
+    // setMessage("");
   };
 
   const handleQuizSubmit = () => {

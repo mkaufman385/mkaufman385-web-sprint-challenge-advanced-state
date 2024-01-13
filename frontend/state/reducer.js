@@ -30,14 +30,15 @@ function quiz(state = initialQuizState, action) {
   // return state;
   switch (action.type) {
     case SET_QUIZ_INTO_STATE:
-      if (Array.isArray(action.payload)) {
-        // Adding a new quiz to the roster
-        return [...state, ...action.payload];
-      } else {
-        // Setting the initial quiz
-        return action.payload;
-      }
-    // return action.payload;
+      // if (Array.isArray(action.payload)) {
+      //   // Adding a new quiz to the roster
+      //   return [...state, ...action.payload];
+      // } else {
+      //   // Setting the initial quiz
+      //   return action.payload;
+      // }
+      // return action.payload;
+      return action.payload;
     default:
       return state;
   }

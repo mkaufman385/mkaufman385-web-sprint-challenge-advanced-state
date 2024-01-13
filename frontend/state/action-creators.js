@@ -86,8 +86,8 @@ export function fetchQuiz() {
 }
 export function postAnswer(answerPayload) {
   return function (dispatch) {
-    dispatch(selectAnswer(null));
-
+    // dispatch(selectAnswer(null));
+    // const quizData = response.data;
     // const message = "Filler Message Here";
     // dispatch(setMessage(message));
 
@@ -96,10 +96,11 @@ export function postAnswer(answerPayload) {
       .then((response) => {
         // console.log("RD", response.data.message);
         const quizData = response.data;
-        dispatch(setQuiz(quizData));
+        // dispatch(setQuiz(quizData));
         dispatch(setMessage(response.data.message));
+        // dispatch(setQuiz(quizData));
 
-        dispatch(fetchQuiz());
+        // dispatch(fetchQuiz());
       })
       .catch((error) => {
         if (error.response && error.response.status === 422) {
